@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:user xmlns:ns2="identity.rest.mgmt.acs.nm.cisco.com">
+<id><%= $user->{id} %></id>
+<description><%= $user->{description} %></description>
+<identityGroupName><%= $user->{identitygroupname} %></identityGroupName>
+<name><%= $user->{name} %></name>
+<changePassword><%= $user->{changepassword} %></changePassword>
+<enablePassword><%= $user->{enablepassword} %></enablePassword>
+<enabled><%= $user->{enabled} %></enabled>
+<password><%= $user->{password} %></password>
+<passwordNeverExpires><%= $user->{passwordneverexpires} %></passwordNeverExpires>
+<passwordType><%= $user->{passwordtype} %></passwordType>
+<dateExceeds><%= $user->{dateexceeds} %></dateExceeds>
+<dateExceedsEnabled><%= $user->{dateexceedsenabled} %></dateExceedsEnabled>
+</ns2:user>
