@@ -1,10 +1,13 @@
 package Net::Cisco::ACS::Mock;
 use Mojo::Base 'Mojolicious';
+use Net::Cisco::ACS::Mock::Schema;
 
 # This method will run once at server start
 sub startup {
   my $self = shift;
-
+  my $schema = Net::Cisco::ACS::Mock::Schema->connect('dbi:SQLite:acs.db');
+  $self->helper(db => sub { return $schema; });
+  
   # Router
   my $r = $self->routes;
 
@@ -19,5 +22,3 @@ sub startup {
 }
 
 1;
-
-#http://localhost:3000/Rest/Identity/User/name/foo

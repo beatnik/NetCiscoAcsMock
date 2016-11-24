@@ -1,5 +1,6 @@
 package Net::Cisco::ACS::Mock::Controller::User;
 use Mojo::Base 'Mojolicious::Controller';
+use Data::Dumper;
 
 my %users =
 ( "foo" =>
@@ -41,9 +42,16 @@ sub query {
     my $self = shift;
 	my $name = $self->param("name");
 	my $id = $self->param("id");
-	my $user;
-	if ($id) { $user = $users{$id{$id}}; }
-	if ($name) { $user = $users{$name}; }
+    my $rs = $self->db->resultset('User');
+    my $user;
+	if ($name) 
+	{ my $query_rs = $rs->search({ name => $name });
+      $user = $query_rs->first;
+    }
+	if ($id) 
+	{ my $query_rs = $rs->search({ id => $id });
+      $user = $query_rs->first;
+    }
 	$self->stash("user" => $user);
 	$self->render(template => 'user/query', format => 'xml');
 }
