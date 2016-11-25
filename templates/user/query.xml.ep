@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:user xmlns:ns2="identity.rest.mgmt.acs.nm.cisco.com">
 <id><%= $user->id %></id>
 <description><%= $user->description %></description>
 <identityGroupName><%= $user->identitygroupname %></identityGroupName>
@@ -11,4 +10,3 @@
 <passwordType><%= $user->passwordtype %></passwordType>
 <dateExceeds><%= $user->dateexceeds %></dateExceeds>
 <dateExceedsEnabled><%= $user->dateexceedsenabled %></dateExceedsEnabled>
-</ns2:user>

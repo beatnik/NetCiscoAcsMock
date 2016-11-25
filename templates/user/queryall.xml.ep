@@ -1,0 +1,16 @@
+% foreach my $user (sort keys %{$users}) {                
+<User>
+<id><%= $users->{$user}->{id} %></id>
+<description><%= $users->{$user}->{description} %></description>
+<identityGroupName><%= $users->{$user}->{identitygroupname} %></identityGroupName>
+<name><%= $users->{$user}->{name} %></name>
+<changePassword><%= $users->{$user}->{changepassword} %></changePassword>
+<enablePassword><%= $users->{$user}->{enablepassword} %></enablePassword>
+<enabled><%= $users->{$user}->{enabled} %></enabled>
+<password><%= $users->{$user}->{password} %></password>
+<passwordNeverExpires><%= $users->{$user}->{passwordneverexpires} %></passwordNeverExpires>
+<passwordType><%= $users->{$user}->{passwordtype} %></passwordType>
+<dateExceeds><%= $users->{$user}->{dateexceeds} %></dateExceeds>
+<dateExceedsEnabled><%= $users->{$user}->{dateexceedsenabled} %></dateExceedsEnabled>
+</User>
+% }
