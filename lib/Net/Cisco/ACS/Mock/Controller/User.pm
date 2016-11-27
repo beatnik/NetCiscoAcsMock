@@ -3,42 +3,6 @@ use Mojo::Base 'Mojolicious::Controller';
 use Data::Dumper;
 use XML::Simple;
 
-my %users =
-( "foo" =>
-  { "description" => "Foo User",
-    "identityGroupName" => "All Groups:Foo",
-	"changePassword" => "true",
-	"enablePassword" => "Secret",
-	"enabled" => "true",
-	"password" => "Secret",
-	"passwordNeverExpires" => "true",
-	"passwordType" => "Internal",
-	"dateExceeds" => "",
-	"dateExceedsEnabled" => "false",
-	"id" => 1,
-	"name" => "foo"
-  },
-  "bar" =>
-  { "description" => "Bar User",
-    "identityGroupName" => "All Groups:Bar",
-	"changePassword" => "true",
-	"enablePassword" => "Secret",
-	"enabled" => "true",
-	"password" => "Secret",
-	"passwordNeverExpires" => "true",
-	"passwordType" => "Internal",
-	"dateExceeds" => "",
-	"dateExceedsEnabled" => "false",
-	"id" => 2,
-	"name" => "foo"
-  }
-);
-
-my %id =
-( 1 => "foo",
-  2 => "bar"
-);
-
 sub query {
     my $self = shift;
 	my $name = $self->param("name");
@@ -64,6 +28,12 @@ sub query {
           passwordneverexpires => $account->passwordneverexpires, passwordtype => $account->passwordtype,
           dateexceeds => $account->dateexceeds, dateexceedsenabled =>$account->dateexceedsenabled
         };
+        $users{$account->name}{"dateExceedsEnabled"} = $users{$account->name}{"dateExceedsEnabled"} && $users{$account->name}{"dateExceedsEnabled"} eq "true" ? 1 : 0;
+        $users{$account->name}{"enabled"} = $users{$account->name}{"enabled"} && $users{$account->name}{"enabled"} eq "true" ? 1 : 0;
+        $users{$account->name}{"enablePassword"} = $users{$account->name}{"enablePassword"} && $users{$account->name}{"enablePassword"} eq "true" ? 1 : 0;
+        $users{$account->name}{"passwordNeverExpires"} = $users{$account->name}{"passwordNeverExpires"} && $users{$account->name}{"passwordNeverExpires"} eq "true" ? 1 : 0;
+        $self->app->log->debug(ref($users{$account->name}{"dateExceeds"}));    
+        $users{$account->name}{"dateExceeds"} = ref($users{$account->name}{"dateExceeds"}) ? "" : $users{$account->name}{"dateExceeds"};
       }
 
       $self->stash("users" => \%users);
@@ -83,6 +53,7 @@ sub update {
     my $xmlout = $xmlsimple->XMLin($data);
     my $query_rs = $rs->search({ name => $xmlout->{"name"} });
     my $account = $query_rs->first;
+
     $xmlout->{"dateExceedsEnabled"} = $xmlout->{"dateExceedsEnabled"} eq "true" ? 1 : 0;
     $xmlout->{"enabled"} = $xmlout->{"enabled"} eq "true" ? 1 : 0;
     $xmlout->{"enablePassword"} = $xmlout->{"enablePassword"} eq "true" ? 1 : 0;
@@ -98,7 +69,7 @@ sub update {
           dateexceeds => $xmlout->{"dateExceeds"},
           dateexceedsenabled =>$xmlout->{"dateExceedsEnabled"}
           });
-	$self->render(render => '', status => 200);	
+	$self->render(template => 'user/userresult', format => 'xml', layout => 'userresult', status => 200);	
 }
 
 sub create {
@@ -109,8 +80,12 @@ sub create {
     $xmlout->{"dateExceedsEnabled"} = $xmlout->{"dateExceedsEnabled"} eq "true" ? 1 : 0;
     $xmlout->{"enabled"} = $xmlout->{"enabled"} eq "true" ? 1 : 0;
     $xmlout->{"enablePassword"} = $xmlout->{"enablePassword"} eq "true" ? 1 : 0;
-    $xmlout->{"passwordNeverExpires"} = $xmlout->{"passwordNeverExpires"} eq "true" ? 1 : 0;    
+    $xmlout->{"passwordNeverExpires"} = $xmlout->{"passwordNeverExpires"} eq "true" ? 1 : 0;
     $xmlout->{"dateExceeds"} = ref($xmlout->{"dateExceeds"}) ? "" : $xmlout->{"dateExceeds"};
+    my $rsmax = $self->db->resultset('User')->get_column('Id');
+    my $maxid = $rsmax->max;
+    $maxid++;
+
     $self->db->resultset('User')->create({
           name => $xmlout->{"name"},
           description => $xmlout->{"description"},
@@ -123,16 +98,27 @@ sub create {
           passwordtype => $xmlout->{"passwordType"},
           dateexceeds => $xmlout->{"dateExceeds"}, # HASH?!?
           dateexceedsenabled =>$xmlout->{"dateExceedsEnabled"},
-          id => "9999"
+          id => $maxid
           });
-	$self->render(render => '', status => 200);	
+	$self->render(template => 'user/userresult', format => 'xml', layout => 'userresult', status => 200);	
 }
 
 sub delete {
     my $self = shift;
+    my $rs = $self->db->resultset('User');
 	my $name = $self->param("name");
 	my $id = $self->param("id");
-	$self->render(template => 'user/delete', format => 'xml');	
+    my $user;
+	if ($name) 
+	{ my $query_rs = $rs->search({ name => $name });
+      $user = $query_rs->first;
+    }
+	if ($id) 
+	{ my $query_rs = $rs->search({ id => $id });
+      $user = $query_rs->first;
+    }
+    $user->delete if $user;    
+	$self->render(template => 'user/userresult', format => 'xml', layout => 'userresult', status => 200);	
 }
 
 1;
