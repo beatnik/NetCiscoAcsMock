@@ -1,9 +1,20 @@
+use utf8;
 package Net::Cisco::ACS::Mock::Schema;
 
-# based on the DBIx::Class Schema base class
-use base qw/DBIx::Class::Schema/;
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
 
-# This will load any classes within
-__PACKAGE__->load_namespaces();
+use strict;
+use warnings;
 
+use base 'DBIx::Class::Schema';
+
+__PACKAGE__->load_namespaces;
+
+
+# Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-01-19 22:38:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vLMAOihUgz9hKdvINCSEZw
+
+
+# You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

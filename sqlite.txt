@@ -1,3 +1,9 @@
+dbicdump -o dump_directory=./lib \
+         -o components='["InflateColumn::DateTime"]' \
+         -o debug=1 \
+         Net::Cisco::ACS::Mock::Schema \
+         dbi:SQLite:moblo.db
+
 drop table users;
 
 create table users
@@ -12,8 +18,16 @@ create table users
   passwordneverexpires integer,
   passwordtype text,
   dateexceeds text,
-  dateexceedsenabled integer
+  dateexceedsenabled integer,
+  created text,
+  lastmodified text
 );
+
+insert into users(id, name, password, description, identitygroupname, enabled,enablepassword, dateexceedsenabled, dateexceeds, changepassword, passwordneverexpires, passwordtype, created, lastmodified)
+values(1, 'Foo','Secret123','Foo User','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2018','1','1','Internal','01/01/2017', '15/01/2017');
+insert into users(id, name, password, description, identitygroupname, enabled,enablepassword, dateexceedsenabled, dateexceeds, changepassword, passwordneverexpires, passwordtype, created, lastmodified)
+values(1, 'Bar','Secret123','Bar User','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2018','1','1','Internal','01/01/2017', '15/01/2017');
+
 
 insert into users(id, name, password, description, identitygroupname, enabled,enablepassword, dateexceedsenabled, dateexceeds, changepassword, passwordneverexpires, passwordtype) values(1, 'echo','Secret123','Eliza Dushku','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2017','1','1','Internal');
 insert into users(id, name, password, description, identitygroupname, enabled,enablepassword, dateexceedsenabled, dateexceeds, changepassword, passwordneverexpires, passwordtype) values(2, 'sierra','Secret123','Dichen Lachman','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2017','1','1','Internal');

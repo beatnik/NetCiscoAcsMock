@@ -11,6 +11,8 @@
 <passwordNeverExpires><%= $users->{$user}->{passwordneverexpires} %></passwordNeverExpires>
 <passwordType><%= $users->{$user}->{passwordtype} %></passwordType>
 <dateExceeds><%= $users->{$user}->{dateexceeds} %></dateExceeds>
+<created><%= $users->{$user}->{created} %></created>
+<lastModified><%= $users->{$user}->{lastModified} %></lastModified>
 <dateExceedsEnabled><%= $users->{$user}->{dateexceedsenabled} %></dateExceedsEnabled>
 </User>
 % }

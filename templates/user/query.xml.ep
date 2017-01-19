@@ -10,3 +10,6 @@
 <passwordType><%= $user->passwordtype %></passwordType>
 <dateExceeds><%= $user->dateexceeds %></dateExceeds>
 <dateExceedsEnabled><%= $user->dateexceedsenabled %></dateExceedsEnabled>
+<created><%= $user->created %></created>
+<lastModified><%= $user->lastModified %></lastModified>
+

@@ -26,13 +26,16 @@ sub query {
           identitygroupname => $account->identitygroupname, changepassword => $account->changepassword,
           enablepassword => $account->enablepassword, enabled => $account->enabled, password => $account->password,
           passwordneverexpires => $account->passwordneverexpires, passwordtype => $account->passwordtype,
-          dateexceeds => $account->dateexceeds, dateexceedsenabled =>$account->dateexceedsenabled
+          dateexceeds => $account->dateexceeds, dateexceedsenabled =>$account->dateexceedsenabled,
+          created => $account->created, lastmodified => $account->lastmodified
         };
         $users{$account->name}{"dateExceedsEnabled"} = $users{$account->name}{"dateExceedsEnabled"} && $users{$account->name}{"dateExceedsEnabled"} eq "true" ? 1 : 0;
         $users{$account->name}{"enabled"} = $users{$account->name}{"enabled"} && $users{$account->name}{"enabled"} eq "true" ? 1 : 0;
         $users{$account->name}{"enablePassword"} = $users{$account->name}{"enablePassword"} && $users{$account->name}{"enablePassword"} eq "true" ? 1 : 0;
         $users{$account->name}{"passwordNeverExpires"} = $users{$account->name}{"passwordNeverExpires"} && $users{$account->name}{"passwordNeverExpires"} eq "true" ? 1 : 0;
-        $self->app->log->debug(ref($users{$account->name}{"dateExceeds"}));    
+        #$self->app->log->debug(ref($users{$account->name}{"dateExceeds"}));
+        $users{$account->name}{"created"} = $users{$account->name}{"created"} && $users{$account->name}{"created"}  ? $users{$account->name}{"created"} : "";
+        $users{$account->name}{"lastModified"} = $users{$account->name}{"lastModified"} && $users{$account->name}{"lastModified"}  ? $users{$account->name}{"lastModified"} : "";        
         $users{$account->name}{"dateExceeds"} = ref($users{$account->name}{"dateExceeds"}) ? "" : $users{$account->name}{"dateExceeds"};
       }
 
@@ -67,7 +70,7 @@ sub update {
           passwordneverexpires => $xmlout->{"passwordNeverExpires"},
           passwordtype => $xmlout->{"passwordType"},
           dateexceeds => $xmlout->{"dateExceeds"},
-          dateexceedsenabled =>$xmlout->{"dateExceedsEnabled"}
+          dateexceedsenabled =>$xmlout->{"dateExceedsEnabled"},
           });
 	$self->render(template => 'user/userresult', format => 'xml', layout => 'userresult', status => 200);	
 }
