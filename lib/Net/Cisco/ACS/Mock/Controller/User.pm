@@ -33,7 +33,6 @@ sub query {
         $users{$account->name}{"enabled"} = $users{$account->name}{"enabled"} && $users{$account->name}{"enabled"} eq "true" ? 1 : 0;
         $users{$account->name}{"enablePassword"} = $users{$account->name}{"enablePassword"} && $users{$account->name}{"enablePassword"} eq "true" ? 1 : 0;
         $users{$account->name}{"passwordNeverExpires"} = $users{$account->name}{"passwordNeverExpires"} && $users{$account->name}{"passwordNeverExpires"} eq "true" ? 1 : 0;
-        #$self->app->log->debug(ref($users{$account->name}{"dateExceeds"}));
         $users{$account->name}{"created"} = $users{$account->name}{"created"} && $users{$account->name}{"created"}  ? $users{$account->name}{"created"} : "";
         $users{$account->name}{"lastModified"} = $users{$account->name}{"lastModified"} && $users{$account->name}{"lastModified"}  ? $users{$account->name}{"lastModified"} : "";        
         $users{$account->name}{"dateExceeds"} = ref($users{$account->name}{"dateExceeds"}) ? "" : $users{$account->name}{"dateExceeds"};
