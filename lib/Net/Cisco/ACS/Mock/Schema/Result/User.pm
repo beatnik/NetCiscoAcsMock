@@ -109,7 +109,7 @@ __PACKAGE__->table("users");
 
 __PACKAGE__->add_columns(
   "id",
-  { data_type => "integer", is_nullable => 1 },
+  { data_type => "integer", is_nullable => 0 },
   "description",
   { data_type => "text", is_nullable => 1 },
   "name",
@@ -142,6 +142,8 @@ __PACKAGE__->add_columns(
 # Created by DBIx::Class::Schema::Loader v0.07046 @ 2017-01-19 22:38:26
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8HDMgzjHZ2imQoArsYnTVA
 
+__PACKAGE__->set_primary_key("id");
+# Manually added - is DBIx::Class picking up Primary Keys in SQLite??
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 1;

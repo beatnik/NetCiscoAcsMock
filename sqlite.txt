@@ -20,13 +20,14 @@ create table users
   dateexceeds text,
   dateexceedsenabled integer,
   created text,
-  lastmodified text
+  lastmodified text,
+  CONSTRAINT users_pk PRIMARY KEY (id)
 );
 
 insert into users(id, name, password, description, identitygroupname, enabled,enablepassword, dateexceedsenabled, dateexceeds, changepassword, passwordneverexpires, passwordtype, created, lastmodified)
-values(1, 'Foo','Secret123','Foo User','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2018','1','1','Internal','01/01/2017', '15/01/2017');
+values(77, 'Foo','Secret123','Foo User','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2018','1','1','Internal','Jan 01 2015 00:00:00', 'Jan 01 2015 00:00:00');
 insert into users(id, name, password, description, identitygroupname, enabled,enablepassword, dateexceedsenabled, dateexceeds, changepassword, passwordneverexpires, passwordtype, created, lastmodified)
-values(1, 'Bar','Secret123','Bar User','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2018','1','1','Internal','01/01/2017', '15/01/2017');
+values(78, 'Bar','Secret123','Bar User','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2018','1','1','Internal','Jan 01 2015 00:00:00', 'Jan 01 2015 00:00:00');
 
 
 insert into users(id, name, password, description, identitygroupname, enabled,enablepassword, dateexceedsenabled, dateexceeds, changepassword, passwordneverexpires, passwordtype) values(1, 'echo','Secret123','Eliza Dushku','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2017','1','1','Internal');

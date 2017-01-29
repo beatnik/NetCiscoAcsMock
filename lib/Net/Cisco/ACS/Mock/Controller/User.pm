@@ -61,8 +61,8 @@ sub update {
     $xmlout->{"enablePassword"} = $xmlout->{"enablePassword"} eq "true" ? 1 : 0;
     $xmlout->{"passwordNeverExpires"} = $xmlout->{"passwordNeverExpires"} eq "true" ? 1 : 0;
     my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
-    $mon++;
     $year += 1900;
+    my @months = qw(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec);
     $account->update({ description => $xmlout->{"description"},
           identitygroupname => $xmlout->{"identityGroupName"},
           changepassword => $xmlout->{"changePassword"},
@@ -72,8 +72,9 @@ sub update {
           passwordneverexpires => $xmlout->{"passwordNeverExpires"},
           passwordtype => $xmlout->{"passwordType"},
           dateexceeds => $xmlout->{"dateExceeds"},
-          dateexceedsenabled =>$xmlout->{"dateExceedsEnabled"},
-          lastmodified => "$mday/$mon/$year",
+          dateexceedsenabled => $xmlout->{"dateExceedsEnabled"},
+          id => $xmlout->{"id"},
+          lastmodified => "$months[$mon] $mday $year $hour:$min:$sec",
           });
 	$self->render(template => 'user/userresult', format => 'xml', layout => 'userresult', status => 200);	
 }
@@ -92,8 +93,8 @@ sub create {
     my $maxid = $rsmax->max;
     $maxid++;
     my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
-    $mon++;
     $year += 1900;
+    my @months = qw(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec);
 
     $self->db->resultset('User')->create({
           name => $xmlout->{"name"},
@@ -108,8 +109,8 @@ sub create {
           dateexceeds => $xmlout->{"dateExceeds"}, # HASH?!?
           dateexceedsenabled =>$xmlout->{"dateExceedsEnabled"},
           id => $maxid,
-          lastmodified => "$mday/$mon/$year",
-          created =>  "$mday/$mon/$year",
+          lastmodified => "$months[$mon] $mday $year $hour:$min:$sec",
+          created =>  "$months[$mon] $mday $year $hour:$min:$sec",
           });
 	$self->render(template => 'user/userresult', format => 'xml', layout => 'userresult', status => 200);	
 }
