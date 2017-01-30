@@ -29,6 +29,8 @@ values(77, 'Foo','Secret123','Foo User','All Groups:Engineers','1', 'EnabledSecr
 insert into users(id, name, password, description, identitygroupname, enabled,enablepassword, dateexceedsenabled, dateexceeds, changepassword, passwordneverexpires, passwordtype, created, lastmodified)
 values(78, 'Bar','Secret123','Bar User','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2018','1','1','Internal','Jan 01 2015 00:00:00', 'Jan 01 2015 00:00:00');
 
+delete from users;
+
 
 insert into users(id, name, password, description, identitygroupname, enabled,enablepassword, dateexceedsenabled, dateexceeds, changepassword, passwordneverexpires, passwordtype) values(1, 'echo','Secret123','Eliza Dushku','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2017','1','1','Internal');
 insert into users(id, name, password, description, identitygroupname, enabled,enablepassword, dateexceedsenabled, dateexceeds, changepassword, passwordneverexpires, passwordtype) values(2, 'sierra','Secret123','Dichen Lachman','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2017','1','1','Internal');

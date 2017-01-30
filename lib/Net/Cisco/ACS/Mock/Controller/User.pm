@@ -31,7 +31,6 @@ sub query {
         };
         $users{$account->name}{"dateExceedsEnabled"} = $users{$account->name}{"dateExceedsEnabled"} && $users{$account->name}{"dateExceedsEnabled"} eq "true" ? 1 : 0;
         $users{$account->name}{"enabled"} = $users{$account->name}{"enabled"} && $users{$account->name}{"enabled"} eq "true" ? 1 : 0;
-        $users{$account->name}{"enablePassword"} = $users{$account->name}{"enablePassword"} && $users{$account->name}{"enablePassword"} eq "true" ? 1 : 0;
         $users{$account->name}{"passwordNeverExpires"} = $users{$account->name}{"passwordNeverExpires"} && $users{$account->name}{"passwordNeverExpires"} eq "true" ? 1 : 0;
         $users{$account->name}{"created"} = $users{$account->name}{"created"} && $users{$account->name}{"created"}  ? $users{$account->name}{"created"} : "";
         $users{$account->name}{"lastModified"} = $users{$account->name}{"lastModified"} && $users{$account->name}{"lastModified"}  ? $users{$account->name}{"lastModified"} : "";        
@@ -58,7 +57,7 @@ sub update {
 
     $xmlout->{"dateExceedsEnabled"} = $xmlout->{"dateExceedsEnabled"} eq "true" ? 1 : 0;
     $xmlout->{"enabled"} = $xmlout->{"enabled"} eq "true" ? 1 : 0;
-    $xmlout->{"enablePassword"} = $xmlout->{"enablePassword"} eq "true" ? 1 : 0;
+    $xmlout->{"enablePassword"} = ref($xmlout->{"enablePassword"}) eq "HASH" ? "" : $xmlout->{"enablePassword"};
     $xmlout->{"passwordNeverExpires"} = $xmlout->{"passwordNeverExpires"} eq "true" ? 1 : 0;
     my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
     $year += 1900;
@@ -86,7 +85,6 @@ sub create {
     my $xmlout = $xmlsimple->XMLin($data);
     $xmlout->{"dateExceedsEnabled"} = $xmlout->{"dateExceedsEnabled"} eq "true" ? 1 : 0;
     $xmlout->{"enabled"} = $xmlout->{"enabled"} eq "true" ? 1 : 0;
-    $xmlout->{"enablePassword"} = $xmlout->{"enablePassword"} eq "true" ? 1 : 0;
     $xmlout->{"passwordNeverExpires"} = $xmlout->{"passwordNeverExpires"} eq "true" ? 1 : 0;
     $xmlout->{"dateExceeds"} = ref($xmlout->{"dateExceeds"}) ? "" : $xmlout->{"dateExceeds"};
     my $rsmax = $self->db->resultset('User')->get_column('Id');
