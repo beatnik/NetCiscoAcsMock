@@ -93,7 +93,6 @@ sub create {
     my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime(time);
     $year += 1900;
     my @months = qw(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec);
-
     $self->db->resultset('User')->create({
           name => $xmlout->{"name"},
           description => $xmlout->{"description"},

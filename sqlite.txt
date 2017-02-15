@@ -2,7 +2,7 @@ dbicdump -o dump_directory=./lib \
          -o components='["InflateColumn::DateTime"]' \
          -o debug=1 \
          Net::Cisco::ACS::Mock::Schema \
-         dbi:SQLite:moblo.db
+         dbi:SQLite:acs.db
 
 drop table users;
 
@@ -20,9 +20,20 @@ create table users
   dateexceeds text,
   dateexceedsenabled integer,
   created text,
-  lastmodified text,
-  CONSTRAINT users_pk PRIMARY KEY (id)
+  lastmodified text
 );
+
+drop table identitygroups;
+
+create table identitygroups
+( id integer,
+  description text,
+  name text
+);
+
+insert into identitygroups(id, description, name) values  ('1','Engineers','All Groups:Engineers');
+insert into identitygroups(id, description, name) values  ('2','Technicians','All Groups:Technicians');
+insert into identitygroups(id, description, name) values  ('3','Users','All Groups:Users');
 
 insert into users(id, name, password, description, identitygroupname, enabled,enablepassword, dateexceedsenabled, dateexceeds, changepassword, passwordneverexpires, passwordtype, created, lastmodified)
 values(77, 'Foo','Secret123','Foo User','All Groups:Engineers','1', 'EnabledSecret', '1', '01/01/2018','1','1','Internal','Jan 01 2015 00:00:00', 'Jan 01 2015 00:00:00');

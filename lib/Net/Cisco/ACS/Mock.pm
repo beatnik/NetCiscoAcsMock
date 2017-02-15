@@ -19,6 +19,15 @@ sub startup {
   $r->post('/Rest/Identity/User')->to('User#create');
   $r->delete('/Rest/Identity/User/name/:name')->to('User#delete');
   $r->delete('/Rest/Identity/User/id/:id')->to('User#delete');
+
+  $r->get("/Rest/Identity/IdentityGroup/name/:name")->to('IdentityGroup#query');  
+  $r->get('/Rest/Identity/IdentityGroup/id/:id')->to('IdentityGroup#query');  
+  $r->get('/Rest/Identity/IdentityGroup')->to('IdentityGroup#query');
+  $r->put('/Rest/Identity/IdentityGroup')->to('IdentityGroup#update');
+  $r->post('/Rest/Identity/IdentityGroup')->to('IdentityGroup#create');
+  $r->delete('/Rest/Identity/IdentityGroup/name/:name')->to('IdentityGroup#delete');
+  $r->delete('/Rest/Identity/IdentityGroup/id/:id')->to('IdentityGroup#delete');
+
 }
 
 1;
